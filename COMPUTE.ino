@@ -33,13 +33,12 @@ void loop() {
   symble();
 }
 
-//void compute(
 
 void symble(){
   while(1){
-    if( digitalRead(13)==HIGH){
+    /*if( digitalRead(13)==HIGH){
       if(IfAnyPin==0){
-        show+='+';
+        show+="+";
         symble_type=1;
         Serial.println("+");
         Serial.print("目前已輸入的運算式為：");
@@ -49,15 +48,45 @@ void symble(){
         delay(100);
         break;
       }
-    }/*else if(digitalRead(12)==HIGH){
-      
+    }else if(digitalRead(12)==HIGH){
+      if(IfAnyPin==0){
+        show+="-";
+        symble_type=1;
+        Serial.println("-");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
     }else if(digitalRead(11)==HIGH){
-      
-    }else if(digitalRead(10)==HIGH){
-
+      if(IfAnyPin==0){
+        show+="×";
+        symble_type=1;
+        Serial.println("×");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
+    }else */if(digitalRead(10)==HIGH){
+        if(IfAnyPin==0){
+        show+="÷";
+        symble_type=1;
+        Serial.println("÷");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
     }else if(digitalRead(9)==HIGH){
       
-    }*/else{
+    }else{
       IfAnyPin=0;
       delay(100);
     }
