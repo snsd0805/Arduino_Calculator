@@ -28,15 +28,20 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  count();   // Serial.println("Round");
-  symble();
+  process();
 }
 
+void process(){
+  while(1){
+    count();
+    symble();
+  }
+}
 
 void symble(){
   while(1){
-    /*if( digitalRead(13)==HIGH){
+    reset();
+    if( digitalRead(AdditionPin)==HIGH){
       if(IfAnyPin==0){
         show+="+";
         symble_type=1;
@@ -48,53 +53,36 @@ void symble(){
         delay(100);
         break;
       }
-    }else if(digitalRead(12)==HIGH){
-      if(IfAnyPin==0){
-        show+="-";
-        symble_type=1;
-        Serial.println("-");
-        Serial.print("目前已輸入的運算式為：");
-        Serial.println(show);                
-        Serial.println("0");
-        IfAnyPin=1;
-        delay(100);
-        break;
-      }
-    }else if(digitalRead(11)==HIGH){
-      if(IfAnyPin==0){
-        show+="×";
-        symble_type=1;
-        Serial.println("×");
-        Serial.print("目前已輸入的運算式為：");
-        Serial.println(show);                
-        Serial.println("0");
-        IfAnyPin=1;
-        delay(100);
-        break;
-      }
-    }else */if(digitalRead(10)==HIGH){
-        if(IfAnyPin==0){
-        show+="÷";
-        symble_type=1;
-        Serial.println("÷");
-        Serial.print("目前已輸入的運算式為：");
-        Serial.println(show);                
-        Serial.println("0");
-        IfAnyPin=1;
-        delay(100);
-        break;
-      }
-    }else if(digitalRead(9)==HIGH){
-      
     }else{
       IfAnyPin=0;
       delay(100);
     }
   }
 }
+void reset(){
+  if( digitalRead(CancelPin)==HIGH){
+      if(IfAnyPin==0){
+        sum=0;
+        symble_type=0;
+        past_temp=0;
+        temp=0;
+        show="";
+                Serial.println("取消");
+                                Serial.println("0");
 
+        IfAnyPin=1;
+        delay(100);
+        IfAnyPin=0;
+        process();
+      }
+    }else{
+      IfAnyPin=0;
+      delay(100);
+    }
+}
 void count(){
-  while(1){
+  while(1){g
+    reset();
     if(digitalRead(CountPin)==HIGH){
       if(IfAnyPin==0){
         temp+=1;
@@ -109,7 +97,6 @@ void count(){
 
     if(digitalRead(DecidePin)==HIGH){
       if(IfAnyPin==0){
-        if(temp!=0){
           past_temp=temp;
           temp=0;
           show+=past_temp;
@@ -120,7 +107,6 @@ void count(){
           IfAnyPin=1;
           delay(100);
           break;
-        }
       }
     }else{
       IfAnyPin=0;
@@ -128,4 +114,42 @@ void count(){
     }
   }
 }
-
+/*else if(digitalRead(SubtractionPin)==HIGH){
+      if(IfAnyPin==0){
+        show+="-";
+        symble_type=1;
+        Serial.println("-");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
+    }else if(digitalRead(MultiplicationPin)==HIGH){
+      if(IfAnyPin==0){
+        show+="×";
+        symble_type=1;
+        Serial.println("×");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
+    }else if(digitalRead(DivisionPin)==HIGH){
+        if(IfAnyPin==0){
+        show+="÷";
+        symble_type=1;
+        Serial.println("÷");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
+    }else if(digitalRead(EqualPin)==HIGH){
+      
+    }*/
