@@ -1,20 +1,17 @@
-const int AdditionPin = 13;
-const int SubtractionPin = 12;
-const int MultiplicationPin = 11;
-const int DivisionPin = 10;
-const int EqualPin = 9;
-const int CountPin = 8;
-const int CancelPin = 7;
-const int DecidePin = 6;
-int sum=0;
-int symble_type=0;
+const int AdditionPin = 13;   //+
+const int SubtractionPin = 12;    //-
+const int MultiplicationPin = 11;   //*
+const int DivisionPin = 10;   // /
+const int EqualPin = 9;   //=
+const int CountPin = 8;   //計數
+const int CancelPin = 7;    //取消鍵
+const int DecidePin = 6;    //決定鍵
 int past_temp=0;
 int temp=0;
-int IfAnyPin=0;//判斷當下按鍵狀態
-String show="70*10-700/2+350";//運算式
+int IfAnyPin=0;   //判斷當下按鍵狀態
+String show="";   //運算式
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600); 
   pinMode(AdditionPin, INPUT);     
   pinMode(SubtractionPin, INPUT);     
@@ -28,25 +25,10 @@ void setup() {
 }
 
 void loop() {
-  //process();
-  //once_analysis();
-  if(digitalRead(EqualPin)==HIGH){
-      if(IfAnyPin==0){
-        
-        Serial.print("答案：");
-          once_analysis();
-          twice_analysis();
-        IfAnyPin=1;
-        delay(100);
-        //break;
-      }
-    }else{
-      IfAnyPin=0;
-      delay(100);
-    }
+  process();    //process 函數處理 輸入數字以及輸入符號
 }
 
-void process(){
+void process(){   //輸入數字（count）以及輸入符號(symble)
   while(1){
     count();
     symble();
@@ -55,11 +37,10 @@ void process(){
 
 void symble(){
   while(1){
-    reset();
-    /*if( digitalRead(AdditionPin)==HIGH){
-      if(IfAnyPin==0){
-        show+="+";
-        symble_type=1;
+    reset();    //若輸入取消鍵即停止此次計算
+    if( digitalRead(AdditionPin)==HIGH){    //偵測加號鍵
+      if(IfAnyPin==0){    //IfAnyPin變數紀錄當下所有按鍵狀況，以免訊號干擾，程式碼下同
+        show+="+";    //運算式字串增加'+'符號，程式碼下同
         Serial.println("+");
         Serial.print("目前已輸入的運算式為：");
         Serial.println(show);                
@@ -79,7 +60,7 @@ void symble(){
         delay(100);
         break;
       }
-    }else */if(digitalRead(MultiplicationPin)==HIGH){
+    }else if(digitalRead(MultiplicationPin)==HIGH){
       if(IfAnyPin==0){
         show+="*";
         Serial.println('*');
@@ -90,7 +71,7 @@ void symble(){
         delay(100);
         break;
       }
-    }/*else if(digitalRead(DivisionPin)==HIGH){
+    }else if(digitalRead(DivisionPin)==HIGH){
         if(IfAnyPin==0){
         show+="/";
         Serial.println("/");
@@ -101,7 +82,7 @@ void symble(){
         delay(100);
         break;
       }
-    }*/else if(digitalRead(EqualPin)==HIGH){
+    }else if(digitalRead(EqualPin)==HIGH){
       if(IfAnyPin==0){
         
         Serial.print("答案：");
@@ -122,8 +103,6 @@ void symble(){
 void reset(){
   if( digitalRead(CancelPin)==HIGH){
       if(IfAnyPin==0){
-        sum=0;
-        symble_type=0;
         past_temp=0;
         temp=0;
         show="";
