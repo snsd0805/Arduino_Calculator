@@ -29,6 +29,7 @@ void setup() {
 
 void loop() {
   process();
+  //once_analysis();
 }
 
 void process(){
@@ -41,7 +42,7 @@ void process(){
 void symble(){
   while(1){
     reset();
-    if( digitalRead(AdditionPin)==HIGH){
+    /*if( digitalRead(AdditionPin)==HIGH){
       if(IfAnyPin==0){
         show+="+";
         symble_type=1;
@@ -53,12 +54,56 @@ void symble(){
         delay(100);
         break;
       }
+    }else if(digitalRead(SubtractionPin)==HIGH){
+      if(IfAnyPin==0){
+        show+="-";
+        Serial.println("-");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
+    }else */if(digitalRead(MultiplicationPin)==HIGH){
+      if(IfAnyPin==0){
+        show+="*";
+        Serial.println('*');
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
+    }/*else if(digitalRead(DivisionPin)==HIGH){
+        if(IfAnyPin==0){
+        show+="/";
+        Serial.println("/");
+        Serial.print("目前已輸入的運算式為：");
+        Serial.println(show);                
+        Serial.println("0");
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
+    }*/else if(digitalRead(EqualPin)==HIGH){
+      if(IfAnyPin==0){
+        
+        Serial.print("答案：");
+        once_analysis();
+        IfAnyPin=1;
+        delay(100);
+        break;
+      }
     }else{
       IfAnyPin=0;
       delay(100);
     }
   }
+
 }
+
 void reset(){
   if( digitalRead(CancelPin)==HIGH){
       if(IfAnyPin==0){
@@ -67,9 +112,8 @@ void reset(){
         past_temp=0;
         temp=0;
         show="";
-                Serial.println("取消");
-                                Serial.println("0");
-
+        Serial.println("取消");
+        Serial.println("0");
         IfAnyPin=1;
         delay(100);
         IfAnyPin=0;
@@ -81,7 +125,7 @@ void reset(){
     }
 }
 void count(){
-  while(1){g
+  while(1){
     reset();
     if(digitalRead(CountPin)==HIGH){
       if(IfAnyPin==0){
@@ -114,42 +158,88 @@ void count(){
     }
   }
 }
-/*else if(digitalRead(SubtractionPin)==HIGH){
-      if(IfAnyPin==0){
-        show+="-";
-        symble_type=1;
-        Serial.println("-");
-        Serial.print("目前已輸入的運算式為：");
-        Serial.println(show);                
-        Serial.println("0");
-        IfAnyPin=1;
-        delay(100);
-        break;
-      }
-    }else if(digitalRead(MultiplicationPin)==HIGH){
-      if(IfAnyPin==0){
-        show+="×";
-        symble_type=1;
-        Serial.println("×");
-        Serial.print("目前已輸入的運算式為：");
-        Serial.println(show);                
-        Serial.println("0");
-        IfAnyPin=1;
-        delay(100);
-        break;
-      }
-    }else if(digitalRead(DivisionPin)==HIGH){
-        if(IfAnyPin==0){
-        show+="÷";
-        symble_type=1;
-        Serial.println("÷");
-        Serial.print("目前已輸入的運算式為：");
-        Serial.println(show);                
-        Serial.println("0");
-        IfAnyPin=1;
-        delay(100);
-        break;
-      }
-    }else if(digitalRead(EqualPin)==HIGH){
+/*else if(digitalRead(EqualPin)==HIGH){
       
     }*/
+
+void once_analysis(){
+        Serial.println("原始："+show);
+
+  int a=0;
+  int b=0;
+  int center;
+  int len=show.length();
+              Serial.println("長度");
+              Serial.println(len);
+
+  for(int i=0;i<len;i++){
+   if(show.charAt(i)=='*' || show.charAt(i)=='/'){
+            Serial.println("找到");
+
+    int Min;
+    int Max;
+    center=i;
+    int times=1;
+    for(int j=center-1;j>=0;j--){
+      if(show.charAt(j)>='0' && show.charAt(j)<='9'){
+        a+=times*((int)show.charAt(j)-48);
+        times*=10;
+        if(j==0){
+          Min=0;
+        }
+      }else{
+        Min=j+1;
+        times=10;
+        break;
+      }
+    }
+    for(int j=center+1;j<=len;j++){
+                  Serial.print("找max");
+                  Serial.println(show.charAt(j));
+
+      if(show.charAt(j)>='0' && show.charAt(j)<='9'){
+        b=b*times+((int)show.charAt(j)-48);
+        if(j==len){
+          Max=len;
+        }
+      }else{
+        Max=j-1;
+        times=1;
+        break;
+      }
+    }
+            Serial.println("最小：");
+            Serial.println(Min);
+            Serial.println("最大：");
+            Serial.println(Max);
+
+
+    int sum;
+    if(show.charAt(i)=='*'){
+      sum=a*b;
+    }else{
+      sum=a/b;
+    }
+
+                Serial.print("總和：");
+                Serial.println(sum);
+
+    //Serial.println(sum);
+    String sumstring;
+     sumstring+=sum;
+                Serial.print("sumstring：");
+                Serial.println(sumstring);
+    String replaced="";
+    for(int j=Min;j<=Max;j++){
+          replaced+=show.charAt(j);
+    }
+    show.replace(replaced,sumstring);
+    
+   }
+  }
+  Serial.print("答案：");
+                   Serial.println(show);
+      //Serial.println(show);
+
+}
+
