@@ -1,4 +1,4 @@
-#Arduino計算機
+# Arduino計算機
 ## 摘要
 Arduino製作計算機，使用8個開關分別控制加、減、乘、除、等於、計數、取消等動作<br>
 並使用Serial Library將Arduino與外埠電腦（PC端）進行序列通訊 (Serial Communication) <br>
@@ -19,5 +19,5 @@ Arduino數位輸入PIN說明如下：
 * PIN 7  ：CancelPin（取消鍵）
 * PIN 6  ：DecidePin（決定鍵）<br>
 
-##注意
+## 注意
 * 請將所有腳位均接上輸入按鈕，否則該腳位會一直收到高電壓的訊息，造成Serial傳輸錯誤
