@@ -164,14 +164,14 @@ void count(){
 
 
 void once_analysis(){
-        Serial.println("原始："+show);
+        //Serial.println("原始："+show);
 
   int a=0;
   int b=0;
   int center;
   int len=show.length();
-              Serial.println("長度");
-              Serial.println(len);
+              //Serial.println("長度");
+              //Serial.println(len);
 
   for(int i=0;i<len;i++){
    if(show.charAt(i)=='*' || show.charAt(i)=='/'){
@@ -184,8 +184,8 @@ void once_analysis(){
     for(int j=center-1;j>=0;j--){
       if(show.charAt(j)>='0' && show.charAt(j)<='9'){
         a+=times*((int)show.charAt(j)-48);
-        Serial.print("a:");
-        Serial.println(a);
+        //Serial.print("a:");
+        //Serial.println(a);
         times*=10;
         if(j==0){
           Min=0;
@@ -203,8 +203,8 @@ void once_analysis(){
 
       if(show.charAt(j)>='0' && show.charAt(j)<='9'){
         b=b*times+((int)show.charAt(j)-48);
-        Serial.print("b:");
-        Serial.println(b);
+        //Serial.print("b:");
+        //Serial.println(b);
         if(j==len-1){
           Max=len-1;
         }
@@ -232,41 +232,41 @@ void once_analysis(){
     }
     a=0;b=0;
 
-                Serial.print("總和：");
-                Serial.println(sum);
+                //Serial.print("總和：");
+                //Serial.println(sum);
 
     //Serial.println(sum);
     String sumstring;
      sumstring+=sum;
-                Serial.print("sumstring：");
-                Serial.println(sumstring);
+                //Serial.print("sumstring：");
+                //Serial.println(sumstring);
     String replaced="";
     for(int j=Min;j<=Max;j++){
           replaced+=show.charAt(j);
     }
-                Serial.print("replaced：");
-                Serial.println(replaced);
+                //Serial.print("replaced：");
+                //Serial.println(replaced);
     show.replace(replaced,sumstring);
-                       Serial.print("temp");
-                       Serial.println(show);
+                      // Serial.print("temp");
+                     //  Serial.println(show);
 i=0;
    }
   }
   
-                   Serial.println(show);
+                  // Serial.println(show);
       //Serial.println(show);
-Serial.println("按取消鍵重新計算");
+//Serial.println("按取消鍵重新計算");
 }
 
 void twice_analysis(){
-        Serial.println("原始："+show);
+  //      Serial.println("原始："+show);
 
   int a=0;
   int b=0;
   int center;
   int len=show.length();
-              Serial.println("長度");
-              Serial.println(len);
+    //          Serial.println("長度");
+    //          Serial.println(len);
 
   for(int i=0;i<len;i++){
    if(show.charAt(i)=='+' || show.charAt(i)=='-'){
@@ -279,8 +279,8 @@ void twice_analysis(){
     for(int j=center-1;j>=0;j--){
       if(show.charAt(j)>='0' && show.charAt(j)<='9'){
         a+=times*((int)show.charAt(j)-48);
-        Serial.print("a:");
-        Serial.println(a);
+      //  Serial.print("a:");
+      //  Serial.println(a);
         times*=10;
         if(j==0){
           Min=0;
@@ -298,8 +298,8 @@ void twice_analysis(){
 
       if(show.charAt(j)>='0' && show.charAt(j)<='9'){
         b=b*times+((int)show.charAt(j)-48);
-        Serial.print("b:");
-        Serial.println(b);
+        //Serial.print("b:");
+        //Serial.println(b);
         if(j==len-1){
           Max=len-1;
         }
@@ -327,23 +327,23 @@ void twice_analysis(){
     }
     a=0;b=0;
 
-                Serial.print("總和：");
-                Serial.println(sum);
+          //      Serial.print("總和：");
+          //      Serial.println(sum);
 
     //Serial.println(sum);
     String sumstring;
      sumstring+=sum;
-                Serial.print("sumstring：");
-                Serial.println(sumstring);
+            //    Serial.print("sumstring：");
+            //    Serial.println(sumstring);
     String replaced="";
     for(int j=Min;j<=Max;j++){
           replaced+=show.charAt(j);
     }
-                Serial.print("replaced：");
-                Serial.println(replaced);
+    //            Serial.print("replaced：");
+    //            Serial.println(replaced);
     show.replace(replaced,sumstring);
-                       Serial.print("temp");
-                       Serial.println(show);
+    //                   Serial.print("temp");
+    //                   Serial.println(show);
 i=0;
    }
   }
